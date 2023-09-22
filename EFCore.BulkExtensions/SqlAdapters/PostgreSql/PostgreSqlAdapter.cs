@@ -205,6 +205,11 @@ public class PostgreSqlAdapter : ISqlOperationsAdapter
         {
             tableInfo.InsertToTempTable = true;
 
+            if (tableInfo.BulkConfig.UseTempDB)
+            {
+                tableInfo.TempSchema = null;
+            }
+
             var sqlCreateTableCopy = SqlQueryBuilderPostgreSql.CreateTableCopy(tableInfo.FullTableName, tableInfo.FullTempTableName, tableInfo.BulkConfig.UseTempDB); //  tableInfo.BulkConfig.UseTempDB
             if (isAsync)
             {
